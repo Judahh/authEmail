@@ -13,7 +13,7 @@ import { eventInfo, readInfo } from './config/databaseInfos';
 import AuthenticationService from './service/authenticationService';
 import EmailService from './service/emailService';
 
-console.log('Initializing DatabaseHandler...');
+// console.log('Initializing DatabaseHandler...');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const journaly = Journaly.newJournaly() as SubjectObserver<any>;
 const readDatabase = new PersistenceInfo(readInfo, journaly);
@@ -36,7 +36,7 @@ const write = new MongoDB(eventDatabase);
 
 const handler = new Handler(write, read);
 
-console.log('DatabaseHandler Initialized.');
+// console.log('DatabaseHandler Initialized.');
 
 export default DatabaseHandler.getInstance({
   handler: handler,
