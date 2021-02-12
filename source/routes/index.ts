@@ -31,9 +31,6 @@ class Index extends RouterSingleton {
       initDefault.middlewares.push(
         authentication.authentication.bind(authentication)
       );
-      initDefault.middlewares.push(
-        authentication.permission.bind(authentication)
-      );
 
       EmailRouter(routes, initDefault);
     } else {

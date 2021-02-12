@@ -25,6 +25,7 @@
   "dependencies": {
     "@backapirest/express": "latest",
     "@flexiblepersistence/service": "latest",
+    "dotenv": "latest",
     "clsx": "latest",
     "cors": "latest",
     "coveralls": "latest",
