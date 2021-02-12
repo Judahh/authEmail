@@ -9,16 +9,14 @@
     "unit_coverall": "tests/unit/coverage/lcov.info",
     "integration_coverall": "tests/integration/coverage/lcov.info",
     "path_dist": "dist",
-    "path_source": "src",
-    "path_server": "src/server"
+    "path_source": "source",
+    "path_server": "source/server"
   },
   "scripts": {
     "tsc": "tsc",
     "prestart": "tsc",
-    "start": "next start",
-    "dev": "next",
-    "build": "next build",
-    "export": "next export",
+    "start": "node $npm_package_config_path_server",
+    "build": "tsc",
     "test": "jest $npm_package_config_jest",
     "integration": "jest $npm_package_config_integration_config $npm_package_config_jest",
     "test:coveralls": "jest $npm_package_config_jest && coveralls < $npm_package_config_unit_coverall && rm -rf ./tests/unit/coverage/coverage",

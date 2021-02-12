@@ -1,2 +1,2 @@
-import { BaseControllerRead } from '@backapirest/next';
+import { BaseControllerRead } from '@backapirest/express';
 export default class EmailController extends BaseControllerRead {}

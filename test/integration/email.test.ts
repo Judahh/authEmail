@@ -1,5 +1,5 @@
 // file deepcode ignore no-any: any needed
-import { Event, Operation } from '@backapirest/next';
+import { Event, Operation } from '@backapirest/express';
 import dBHandler from '../../src/dBHandler';
 import SignUpController from '../../src/controller/signUpController';
 import PersonController from '../../src/controller/personController';

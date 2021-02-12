@@ -1,6 +1,6 @@
 // file deepcode ignore object-literal-shorthand: temporary
 // file deepcode ignore no-any: temporary
-import { BasicService } from '@backapirest/next';
+import { BasicService } from '@backapirest/express';
 import nodemailer from 'nodemailer';
 
 export default class EmailService extends BasicService {

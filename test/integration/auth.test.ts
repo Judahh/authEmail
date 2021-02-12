@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 // file deepcode ignore no-any: any needed
-import { Event, Operation } from '@backapirest/next';
+import { Event, Operation } from '@backapirest/express';
 import dBHandler from '../../src/dBHandler';
 import SignUpController from '../../src/controller/signUpController';
 // import SessionController from '../../src/controller/sessionController';

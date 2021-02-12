@@ -1,4 +1,4 @@
-import { BaseControllerDefault } from '@backapirest/next';
+import { BaseControllerDefault } from '@backapirest/express';
 export default class Authentication extends BaseControllerDefault {
   getBearerAuthentication(bearer?: string) {
     const newBearer = bearer

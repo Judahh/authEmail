@@ -2,7 +2,11 @@
 // file deepcode ignore object-literal-shorthand: argh
 // file deepcode ignore no-any: any needed
 import { Handler, MongoDB, PersistenceInfo } from 'flexiblepersistence';
-import { DatabaseHandler, Journaly, SubjectObserver } from '@backapirest/next';
+import {
+  DatabaseHandler,
+  Journaly,
+  SubjectObserver,
+} from '@backapirest/express';
 import { ServiceHandler } from '@flexiblepersistence/service';
 // import PermissionService from './service/permissionService';
 import { eventInfo, readInfo } from './config/databaseInfos';

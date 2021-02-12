@@ -1,5 +1,5 @@
 // file deepcode ignore no-any: any needed
-import { BasicService } from '@backapirest/next';
+import { BasicService } from '@backapirest/express';
 import { Operation } from 'flexiblepersistence';
 
 export default class AuthenticationService extends BasicService {

@@ -8,7 +8,7 @@ import dBHandler from '../dBHandler';
 
 import Authentication from '../middleware/authentication';
 
-import { RouterSingleton, RouterInitializer } from '@backapirest/next';
+import { RouterSingleton, RouterInitializer } from '@backapirest/express';
 
 import Helmet from 'helmet';
 import Limit from 'express-rate-limit';
