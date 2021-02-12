@@ -1,7 +1,6 @@
-import EmailController from '../controller/emailController';
-import IndexController from '../controller/indexController';
+import EmailRouter from './emailRouter';
 
-import dBHandler from '../dBHandler';
+// import dBHandler from '../dBHandler';
 // import getConfig from 'next/config';
 // const config = getConfig();
 // console.log('config:', config);
@@ -19,23 +18,16 @@ import { default as limitConfig } from '../config/limit.json';
 const limit = Limit(limitConfig);
 
 class Index extends RouterSingleton {
-  getNames(array) {
-    return array.map((value) => {
-      // console.log('value:', value.name);
-      return value.name;
-    });
-  }
   createRoutes(initDefault?: RouterInitializer): void {
-    // console.log('New ROUTES', initDefault);
+    // console.log('New ROUTES');
     if (initDefault) {
+      const routes = this.getRoutes();
       if (!initDefault.middlewares || initDefault.middlewares.length > 0)
         initDefault.middlewares = [];
       initDefault.middlewares.push(Helmet());
       initDefault.middlewares.push(limit);
 
-      const index = new IndexController(initDefault);
       const authentication = new Authentication(initDefault);
-
       initDefault.middlewares.push(
         authentication.authentication.bind(authentication)
       );
@@ -43,20 +35,15 @@ class Index extends RouterSingleton {
         authentication.permission.bind(authentication)
       );
 
-      const email = new EmailController(initDefault);
-
-      this.controller = {
-        index,
-        email,
-      };
+      EmailRouter(routes, initDefault);
     } else {
       throw new Error('Must init Init Default');
     }
   }
 }
 
-console.log('Initializing Routes...');
-Index.getInstance().createRoutes(dBHandler.getInit());
-console.log('Routes Initialized.');
+// console.log('Initializing Routes...');
+// Index.getInstance().createRoutes(dBHandler.getInit());
+// console.log('Routes Initialized.');
 
 export default Index.getInstance();

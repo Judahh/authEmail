@@ -15,7 +15,7 @@
   "scripts": {
     "tsc": "tsc",
     "prestart": "tsc",
-    "start": "node $npm_package_config_path_server",
+    "start": "node $npm_package_config_path_dist/$npm_package_config_path_server",
     "build": "tsc",
     "test": "jest $npm_package_config_jest",
     "integration": "jest $npm_package_config_integration_config $npm_package_config_jest",
