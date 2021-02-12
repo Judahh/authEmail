@@ -10,7 +10,6 @@ export default class Authentication extends BaseControllerDefault {
       : bearer;
     return newBearer && newBearer.length > 0 ? newBearer : undefined;
   }
-
   getAuthentication(req) {
     const bearer = req.headers
       ? this.getBearerAuthentication(req.headers.authorization)

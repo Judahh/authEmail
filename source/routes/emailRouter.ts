@@ -10,4 +10,5 @@ export default function EmailRouter(
   const emailController = new EmailController(initDefault);
   routes.get('/email/:id', emailController.index.bind(emailController));
   routes.get('/email', emailController.show.bind(emailController));
+  routes.post('/email', emailController.store.bind(emailController));
 }

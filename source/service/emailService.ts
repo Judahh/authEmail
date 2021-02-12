@@ -1,6 +1,7 @@
 // file deepcode ignore object-literal-shorthand: temporary
 // file deepcode ignore no-any: temporary
 import { BasicService } from '@backapirest/express';
+import { PersistenceInput, PersistencePromise } from 'flexiblepersistence';
 import nodemailer from 'nodemailer';
 
 export default class EmailService extends BasicService {
@@ -161,61 +162,28 @@ export default class EmailService extends BasicService {
     });
   }
 
-  //! verify email
-  async read(input) {
-    // input: {
-    //   single: true,
-    //   scheme: 'Email',
-    //   id: '601ab5794263c93a0c5fa7ed',
-    //   selectedItem: {
-    //     token: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJnaXZlbk5hbWUiOiJTb21lIiwiZmFtaWx5TmFtZSI6Ik9uZSIsInBlcm1pc3Npb25zIjp7ImF1dGgiOnsiRW1haWwiOlsicmVhZCJdfX0sImlkIjoiNjAxYWI1Nzk0MjYzYzkzYTBjNWZhN2VkIiwiX2lkIjoiNjAxYWI1Nzk0MjYzYzkzYTBjNWZhN2VkIiwiaWRlbnRpZmljYXRpb24iOiJqdWRhaGhvbGFuZGE3OEBnbWFpbC5jb20iLCJ0eXBlIjoiTE9DQUwiLCJpYXQiOjE2MTIzNjMxMjksImV4cCI6MTYxMjM2NDAyOX0.Au_XNHyZvp-vYxi7I6XPohPZxpRIy7Gq1oLUYHb5yVs44SgBxMWDgtIFiY6sS_Qc3RuT6dlnN9GXrvNu1iKCNTCS6NjHkvb8UneAPmIVHMk7Yp38VvCEQ8eV4fIxEA9bUVtRE6IxFZtYzjRuiccAa77AM7MTAKlzKm7St-FMd5H6Oex2KMrMnLVHDf_Mra7rxwhXD_l2ispA1i5qF3LaAPxOe9hkkG3lU1VfN9lI1guaMF609mouOhBfUpmd2U5vacu4EJ3hvWOyeHMM4wmLSmV170A0TvwIEseL-R8dun2tAiJUExFswU87U0OBYDoW0A2g7rQHvqxX0QsWBrCrCA',
-    //     id: '601ab5794263c93a0c5fa7ed'
-    //   },
-    //   item: {},
-    //   eventOptions: {
-    //     host: 'localhost:3000',
-    //     'user-agent': 'insomnia/2020.5.2',
-    //     'content-type': 'application/json',
-    //     accept: '*/*',
-    //     'content-length': '0'
-    //   }
-    // }
-    const subScheme = 'Person';
-    const method = 'update';
-    const token = JSON.parse(JSON.stringify(input.selectedItem.token));
-    const auth = await this.journaly?.publish(
-      'AuthenticationService.authentication',
-      token
-    );
-    // console.log(auth);
-    const identification = {
-      identification: auth.identification,
-      type: auth.type,
-    };
-    // console.log(identification);
-    const newSubInput = {
-      single: true,
-      selectedItem: {
-        identifications: {
-          $elemMatch: identification,
-        },
-        'identifications.type': identification.type,
-        'identifications.identification': identification.identification,
-      },
-      item: {
-        $set: {
-          'identifications.$.unverified': false,
-        },
-      },
-    };
-    // console.log(newSubInput);
+  //! verify email needs id
+  async read(input: PersistenceInput<any>): Promise<PersistencePromise<any>> {
+    // timeout de checagem se a conta foi verificada.
+    return new Promise(async (resolve) => {
+      resolve({
+        receivedItem: input.item,
+        result: input.item,
+        selectedItem: input.selectedItem,
+        sentItem: input.item,
+      });
+    });
+  }
 
-    const person: any = await this.journaly?.publish(
-      subScheme + 'Service.' + method,
-      newSubInput
-    );
-    // console.log(person.receivedItem);
-    await this.journaly?.publish('PersonService.removeKeys', person);
-    return person;
+  //! send email
+  async create(input: PersistenceInput<any>): Promise<PersistencePromise<any>> {
+    return new Promise(async (resolve) => {
+      resolve({
+        receivedItem: input.item,
+        result: input.item,
+        selectedItem: input.selectedItem,
+        sentItem: input.item,
+      });
+    });
   }
 }
