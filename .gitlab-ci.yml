@@ -1,0 +1,69 @@
+stages:
+  - build
+  - test
+  - deploy_test
+  - deploy_production
+
+image: node:latest
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+build:
+  stage: build
+  before_script:
+    - yarn
+  script:
+    - yarn build
+    - yarn tsc
+
+unity_test:
+  stage: test
+  script:
+    - yarn test
+
+integration_test:
+  services:
+    - postgres:12.1
+    - mongo
+  variables:
+    POSTGRES_DB: dbauth
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: evox2019
+    POSTGRES_HOST_AUTH_METHOD: trust
+  stage: test
+  script:
+    - yarn integration
+
+test:
+  environment: test
+  image: node:latest
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+  only:
+    - develop
+  stage: deploy_test
+  script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+  - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+
+production:
+  environment: production
+  image: node:latest
+  cache:
+    paths:
+      - node_modules/
+      - .yarn
+  only:
+    - master
+  stage: deploy_production
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=aws --app=$AWS_APP_NAME --api-key=$AWS_API_KEY

@@ -1,0 +1,4 @@
+{
+  "verificationTimeout": 1296000000,
+  "verificationJitter": 10000
+}
