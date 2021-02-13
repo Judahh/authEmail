@@ -162,7 +162,7 @@ export default class EmailService extends BasicService {
     });
   }
 
-  //! verify email needs id
+  //! check email, needs id
   async read(input: PersistenceInput<any>): Promise<PersistencePromise<any>> {
     // timeout de checagem se a conta foi verificada.
     return new Promise(async (resolve) => {
