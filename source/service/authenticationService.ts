@@ -4,7 +4,7 @@ import { BasicService } from '@backapirest/express';
 export default class AuthenticationService extends BasicService {
   authentication(key): Promise<any> {
     return new Promise(async (resolve, reject) => {
-      if (key === process.env.Key) resolve(true);
+      if (key === process.env.KEY) resolve(true);
       else {
         const error = new Error('Unauthorized.');
         error.name = 'Unauthorized';
